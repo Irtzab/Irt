@@ -1,0 +1,40 @@
+with open("file.txt", "w") as file:
+    file.write("snail")
+
+    import random
+    import string
+
+    random_text = ''.join(random.choices(string.ascii_letters, k=random.randint(100, 110)))
+
+    with open("sample.txt", "w") as file:
+        file.write(random_text)
+
+    with open("sample.txt", "r") as file:
+        text = file.read()[:90]
+
+    with open("90chars.txt", "w") as file:
+        file.write(text)
+
+import os
+def count_char_occurrences(char, file_path):
+    if len(char) != 1:
+        return "Ошибка: символ должен быть одиночным символом"
+
+    if not os.path.exists(file_path):
+        return "Ошибка: указанный файл не существует"
+
+    count = 0
+    with open(file_path, "r") as file:
+        text = file.read()
+        for c in text:
+            if c == char:
+                count += 1
+
+    return count
+
+
+# Пример использования
+char = "a"
+file_path = "sample.txt"
+result = count_char_occurrences(char, file_path)
+print(f"Символ '{char}' встречается {result} раз в файле {file_path}")
